@@ -4,6 +4,7 @@ import subprocess
 import time
 
 NUM_REQUESTS = 250
+WG_INTERFACE = "wg0"
 
 # get latency (ms) for requesting the desired server file
 def get_latency_ms():
@@ -32,9 +33,9 @@ if __name__ == '__main__':
         comps_latency.append(get_latency_ms())
         subprocess.run(['sudo', './takedown.sh'])
 
-        subprocess.run(['sudo', 'wg-quick', "up", "wg0"])
+        subprocess.run(['sudo', 'wg-quick', "up", WG_INTERFACE])
         vpn_latency.append(get_latency_ms())
-        subprocess.run(['sudo', 'wg-quick', "down", "wg0"])
+        subprocess.run(['sudo', 'wg-quick', "down", WG_INTERFACE])
 
         naive_latency.append(get_latency_ms())
 
